@@ -1,0 +1,5 @@
+name: PearlNerf
+main: com.github.indiv0.pearlnerf.PearlNerf
+version: 1.0.0
+load: POSTWORLD
+author: Indiv0

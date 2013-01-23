@@ -1,0 +1,59 @@
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+#  Configuration file for "Radio".      #
+#  @author Nikita Pekin (Indivisible0)  #
+#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+
+
+#======== World List ==========#
+
+## All of the worlds in which Radio is enabled.
+worlds: 
+  - world
+  - world_nether
+  - world_the_end
+
+
+#======== Settings ==========#
+
+## The ID of the item to be used as a "pipboy", i.e. the radio reciever.
+# (Note: please set a legitimate item in order to avoid errors.)
+# Default: 345
+pipboyID: 345
+
+## The percentage chance of player on the "scan" frequency to recieve a broadcast.
+# (Note: must be set to a value from 0.00 to 1.00)
+# Default: 0.01
+scanChance: 0.01
+
+## How many blocks are added to the total radio range, per IRON_FENCE block.
+# Default: 30
+ironBarExtension: 30
+
+## The Block ID of valid signal "clarity" blocks for the radio with their corresponding percentage of boost radius.
+# Default:
+#  DIAMOND_BLOCK: 0.99
+#  LAPIS_BLOCK: 0.3
+#  IRON_BLOCK: 0.15
+#  GOLD_BLOCK: 0.5
+#  DIRT: 0
+signalClarityBlocks:
+  DIAMOND_BLOCK: 0.99
+  GOLD_BLOCK: 0.5
+  LAPIS_BLOCK: 0.3
+  IRON_BLOCK: 0.15
+  DIRT: 0.0
+
+## Whether or not to persist wall and user radios across reloads.
+# Default: true and true
+wallRadioPersist: true
+userRadioPersist: true
+
+## Transmit or not transmit empty messages from radios.
+transmitEmptyMessages: false
+
+
+###############################################
+##   Internal Settings (Read: DO NOT EDIT)   ##
+###############################################
+
+permissionsPrefix: radio.
