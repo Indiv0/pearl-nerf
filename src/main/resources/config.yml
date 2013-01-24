@@ -1,59 +1,31 @@
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
-#  Configuration file for "Radio".      #
+#  Configuration file for "PearlNerf".  #
 #  @author Nikita Pekin (Indivisible0)  #
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
 
 
-#======== World List ==========#
-
-## All of the worlds in which Radio is enabled.
-worlds: 
-  - world
-  - world_nether
-  - world_the_end
-
-
 #======== Settings ==========#
 
-## The ID of the item to be used as a "pipboy", i.e. the radio reciever.
-# (Note: please set a legitimate item in order to avoid errors.)
-# Default: 345
-pipboyID: 345
+## Whether or not enderman enderpearl drop limiting is enabled.
+# Default: true
+limitPearlDrops: true
 
-## The percentage chance of player on the "scan" frequency to recieve a broadcast.
-# (Note: must be set to a value from 0.00 to 1.00)
-# Default: 0.01
-scanChance: 0.01
+## The chance of recieving a pearl (as a percentage of the vanilla rate), if limitPearlDrops is true.
+# Note: must be a value from 0.00 - 1.00
+# Default: 0.05
+pearlDropRate: 0.05
 
-## How many blocks are added to the total radio range, per IRON_FENCE block.
-# Default: 30
-ironBarExtension: 30
+## Whether or not a slowness II debuff should be applied to the player after pearling.
+# Default: true
+applySlownessDebuff: true
 
-## The Block ID of valid signal "clarity" blocks for the radio with their corresponding percentage of boost radius.
-# Default:
-#  DIAMOND_BLOCK: 0.99
-#  LAPIS_BLOCK: 0.3
-#  IRON_BLOCK: 0.15
-#  GOLD_BLOCK: 0.5
-#  DIRT: 0
-signalClarityBlocks:
-  DIAMOND_BLOCK: 0.99
-  GOLD_BLOCK: 0.5
-  LAPIS_BLOCK: 0.3
-  IRON_BLOCK: 0.15
-  DIRT: 0.0
-
-## Whether or not to persist wall and user radios across reloads.
-# Default: true and true
-wallRadioPersist: true
-userRadioPersist: true
-
-## Transmit or not transmit empty messages from radios.
-transmitEmptyMessages: false
+## The duration of the slowness II debuff (in seconds), if applied.
+# Default: 60
+slownessDebuffDuration: 60
 
 
 ###############################################
 ##   Internal Settings (Read: DO NOT EDIT)   ##
 ###############################################
 
-permissionsPrefix: radio.
+permissionsPrefix: pearlnerf.

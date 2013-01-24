@@ -3,24 +3,31 @@ package com.github.indiv0.pearlnerf;
 import java.util.Iterator;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 
 public class PearlNerfListener implements Listener {
-    public static PearlNerf plugin;
+    public static PearlNerfConfigurationContext configurationContext;
 
     static double enderPearlDropChance = 0.05;
     static Random random = new Random();
 
-    public PearlNerfListener(PearlNerf instance) {
-        plugin = instance;
+    public PearlNerfListener(PearlNerfConfigurationContext configurationContext) {
+        PearlNerfListener.configurationContext = configurationContext;
     }
 
     @EventHandler
@@ -45,15 +52,18 @@ public class PearlNerfListener implements Listener {
         if (!action.equals(Action.RIGHT_CLICK_AIR) && !action.equals(Action.RIGHT_CLICK_BLOCK))
             return;
 
-        if (plugin.combatApi == null)
-            return;
-
         Player player = event.getPlayer();
         ItemStack thrown = player.getItemInHand();
 
         if (thrown == null || thrown.getType() != Material.ENDER_PEARL)
             return;
 
-        plugin.combatApi.setTagged(player);
+        if (configurationContext.applySlownessDebuff)
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, configurationContext.slownessDebuffDuration * 20, 2), true);
+
+        if (!player.hasPermission("pearlnerf.tag"))
+            return;
+
+        Bukkit.getServer().getPluginManager().callEvent(new EntityDamageByEntityEvent(player, player, DamageCause.ENTITY_ATTACK, 0));
     }
 }

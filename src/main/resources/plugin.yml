@@ -3,3 +3,8 @@ main: com.github.indiv0.pearlnerf.PearlNerf
 version: 1.0.0
 load: POSTWORLD
 author: Indiv0
+
+permissions:
+  pearlnerf.tag:
+    description: Controls whether or not a player is exempt from PearlNerf combat tagging
+    default: true

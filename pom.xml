@@ -11,7 +11,6 @@
   <properties>
     <altDeploymentRepository>-DaltDeploymentRepository=repo::default::file:../indiv0-mvn-repo/releases</altDeploymentRepository>
     <bukkitutils.version>1.0.3</bukkitutils.version>
-    <combattag.version>1.0.0</combattag.version>
   </properties>
 
   <parent>
@@ -33,17 +32,16 @@
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
     </dependency>
-    <!-- BukkitUtils -->
+    <!-- Mbapi -->
     <dependency>
-      <groupId>com.github.indiv0</groupId>
-      <artifactId>BukkitUtils</artifactId>
-      <version>${bukkitutils.version}</version>
+      <groupId>ashulman</groupId>
+      <artifactId>mbapi</artifactId>
+      <scope>compile</scope>
     </dependency>
-    <!-- CombatTag -->
+    <!-- Typesafecollections -->
     <dependency>
-      <groupId>com.trc202</groupId>
-      <artifactId>CombatTag</artifactId>
-      <version>${combattag.version}</version>
+      <groupId>ashulman</groupId>
+      <artifactId>typesafecollections</artifactId>
     </dependency>
   </dependencies>
 

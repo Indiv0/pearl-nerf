@@ -1,27 +1,19 @@
 package com.github.indiv0.pearlnerf;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import ashulman.mbapi.plugin.MbapiPlugin;
 
-import com.github.indiv0.bukkitutils.UtilManager;
-import com.trc202.CombatTag.CombatTag;
-import com.trc202.CombatTagApi.CombatTagApi;
+import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 
-public class PearlNerf extends JavaPlugin {
-    private final UtilManager utilManager = new UtilManager();
-    public CombatTagApi combatApi = null;
-
-    @Override
-    public void onLoad() {
-        // Initialize all utilities.
-        utilManager.initialize(this);
-    }
-
+public class PearlNerf extends MbapiPlugin {
     @Override
     public void onEnable() {
-        utilManager.getListenerUtil().registerListener(new PearlNerfListener(this));
+        // Initializes the configurationContext.
+        PearlNerfConfigurationContext configurationContext = new PearlNerfConfigurationContext(this);
+        // Initializes the infoManager.
 
-        if (getServer().getPluginManager().getPlugin("CombatTag") != null) {
-            combatApi = new CombatTagApi((CombatTag) getServer().getPluginManager().getPlugin("CombatTag"));
-        }
+        // Registers the event handler and the command executor.
+        registerEventHandler(new PearlNerfListener(configurationContext));
+
+        super.onEnable();
     }
 }
