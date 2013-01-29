@@ -1,7 +1,6 @@
-package com.github.indiv0.pearlnerf;
+package com.github.indiv0.pearlnerf.events;
 
 import java.util.Iterator;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -23,8 +22,7 @@ import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 public class PearlNerfListener implements Listener {
     public static PearlNerfConfigurationContext configurationContext;
 
-    static double enderPearlDropChance = 0.05;
-    static Random random = new Random();
+    private static double enderPearlDropChance = 0.05;
 
     public PearlNerfListener(PearlNerfConfigurationContext configurationContext) {
         PearlNerfListener.configurationContext = configurationContext;
@@ -32,37 +30,40 @@ public class PearlNerfListener implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (event.getEntity().getType() != EntityType.ENDERMAN)
+        if (event.getEntity().getType() != EntityType.ENDERMAN) {
             return;
+        }
 
-        if (event.getDrops().isEmpty())
-            return;
-
-        Iterator<ItemStack> itemStackIterator = event.getDrops().iterator();
-
-        while (itemStackIterator.hasNext())
-            if (itemStackIterator.next().getType() == Material.ENDER_PEARL)
-                if (random.nextDouble() > enderPearlDropChance)
+        for (Iterator<ItemStack> itemStackIterator = event.getDrops().iterator(); itemStackIterator.hasNext();) {
+            if (itemStackIterator.next().getType() == Material.ENDER_PEARL) {
+                if (Math.random() > enderPearlDropChance) {
                     itemStackIterator.remove();
+                }
+            }
+        }
     }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
-        if (!action.equals(Action.RIGHT_CLICK_AIR) && !action.equals(Action.RIGHT_CLICK_BLOCK))
+        if (!action.equals(Action.RIGHT_CLICK_AIR) && !action.equals(Action.RIGHT_CLICK_BLOCK)) {
             return;
+        }
 
         Player player = event.getPlayer();
         ItemStack thrown = player.getItemInHand();
 
-        if (thrown == null || thrown.getType() != Material.ENDER_PEARL)
+        if (thrown == null || thrown.getType() != Material.ENDER_PEARL) {
             return;
+        }
 
-        if (configurationContext.applySlownessDebuff)
+        if (configurationContext.applySlownessDebuff) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, configurationContext.slownessDebuffDuration * 20, 2), true);
+        }
 
-        if (!player.hasPermission("pearlnerf.tag"))
+        if (!player.hasPermission("pearlnerf.tag")) {
             return;
+        }
 
         Bukkit.getServer().getPluginManager().callEvent(new EntityDamageByEntityEvent(player, player, DamageCause.ENTITY_ATTACK, 0));
     }

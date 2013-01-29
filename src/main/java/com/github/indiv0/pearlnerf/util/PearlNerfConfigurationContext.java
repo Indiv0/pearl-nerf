@@ -13,7 +13,6 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
 
     public PearlNerfConfigurationContext(MbapiPlugin plugin) {
         super(plugin);
-
         plugin.saveDefaultConfig();
 
         // Tries to load the configuration from the file into configYaml.

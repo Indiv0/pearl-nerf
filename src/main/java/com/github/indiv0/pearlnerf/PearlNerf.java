@@ -2,6 +2,7 @@ package com.github.indiv0.pearlnerf;
 
 import ashulman.mbapi.plugin.MbapiPlugin;
 
+import com.github.indiv0.pearlnerf.events.PearlNerfListener;
 import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 
 public class PearlNerf extends MbapiPlugin {
