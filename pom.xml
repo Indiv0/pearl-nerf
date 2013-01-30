@@ -10,14 +10,13 @@
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
 
 	<properties>
-		<altDeploymentRepository>-DaltDeploymentRepository=repo::default::file:../indiv0-mvn-repo/releases</altDeploymentRepository>
-		<bukkitutils.version>1.0.3</bukkitutils.version>
+		<combattag.version>5.5</combattag.version>
 	</properties>
 
 	<parent>
 		<groupId>ashulman</groupId>
 		<artifactId>maven-parent</artifactId>
-		<version>0.3.3</version>
+		<version>0.4</version>
 	</parent>
 
 	<distributionManagement>
@@ -28,63 +27,37 @@
 	</distributionManagement>
 
 	<dependencies>
-		<!-- Bukkit -->
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
 		</dependency>
-		<!-- Mbapi -->
 		<dependency>
 			<groupId>ashulman</groupId>
 			<artifactId>mbapi</artifactId>
-			<scope>compile</scope>
 		</dependency>
-		<!-- Typesafecollections -->
 		<dependency>
-			<groupId>ashulman</groupId>
-			<artifactId>typesafecollections</artifactId>
+			<groupId>com.github.trc202</groupId>
+			<artifactId>combat-tag</artifactId>
+			<version>${combattag.version}</version>
 		</dependency>
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-to-local-server</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${project.version}</version>
-									<type>${project.packaging}</type>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>F:/Server/plugins</outputDirectory>
-							<stripVersion>true</stripVersion>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>plugin.yml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>plugin.yml</exclude>
+				</excludes>
+			</resource>
+		</resources>
 	</build>
 </project>

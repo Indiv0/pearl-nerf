@@ -1,4 +1,4 @@
-#-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
 #  Configuration file for "PearlNerf".  #
 #  @author Nikita Pekin (Indivisible0)  #
 #-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#
@@ -12,20 +12,5 @@ limitPearlDrops: true
 
 ## The chance of recieving a pearl (as a percentage of the vanilla rate), if limitPearlDrops is true.
 # Note: must be a value from 0.00 - 1.00
-# Default: 0.05
-pearlDropRate: 0.05
-
-## Whether or not a slowness II debuff should be applied to the player after pearling.
-# Default: true
-applySlownessDebuff: true
-
-## The duration of the slowness II debuff (in seconds), if applied.
-# Default: 60
-slownessDebuffDuration: 60
-
-
-###############################################
-##   Internal Settings (Read: DO NOT EDIT)   ##
-###############################################
-
-permissionsPrefix: pearlnerf.
+# Default: 0.95
+pearlDropRate: 0.95

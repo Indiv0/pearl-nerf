@@ -5,12 +5,11 @@ import ashulman.mbapi.plugin.MbapiPlugin;
 import com.github.indiv0.pearlnerf.events.PearlNerfListener;
 import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 
-public class PearlNerf extends MbapiPlugin {
+public class PearlNerfPlugin extends MbapiPlugin {
     @Override
     public void onEnable() {
         // Initializes the configurationContext.
         PearlNerfConfigurationContext configurationContext = new PearlNerfConfigurationContext(this);
-        // Initializes the infoManager.
 
         // Registers the event handler and the command executor.
         registerEventHandler(new PearlNerfListener(configurationContext));

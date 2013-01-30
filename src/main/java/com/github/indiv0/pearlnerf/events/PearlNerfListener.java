@@ -2,69 +2,49 @@ package com.github.indiv0.pearlnerf.events;
 
 import java.util.Iterator;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
+import com.github.indiv0.pearlnerf.CombatTagHook;
 import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 
 public class PearlNerfListener implements Listener {
-    public static PearlNerfConfigurationContext configurationContext;
-
-    private static double enderPearlDropChance = 0.05;
+    private final double enderPearlDropChance;
+    private final CombatTagHook ctHook;
 
     public PearlNerfListener(PearlNerfConfigurationContext configurationContext) {
-        PearlNerfListener.configurationContext = configurationContext;
+        enderPearlDropChance = configurationContext.pearlDropRate;
+        ctHook = configurationContext.ctHook;
+
+        assert (enderPearlDropChance >= 0d);
+        assert (enderPearlDropChance <= 1d);
+        assert (ctHook != null);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onEntityDeath(EntityDeathEvent event) {
-        if (event.getEntity().getType() != EntityType.ENDERMAN) {
-            return;
-        }
-
-        for (Iterator<ItemStack> itemStackIterator = event.getDrops().iterator(); itemStackIterator.hasNext();) {
-            if (itemStackIterator.next().getType() == Material.ENDER_PEARL) {
-                if (Math.random() > enderPearlDropChance) {
-                    itemStackIterator.remove();
+        if (EntityType.ENDERMAN.equals(event.getEntity().getType())) {
+            for (Iterator<ItemStack> itemStackIterator = event.getDrops().iterator(); itemStackIterator.hasNext();) {
+                if (Material.ENDER_PEARL.equals(itemStackIterator.next().getType())) {
+                    if (Math.random() > enderPearlDropChance) {
+                        itemStackIterator.remove();
+                    }
                 }
             }
         }
     }
 
-    @EventHandler
-    public void onInteract(PlayerInteractEvent event) {
-        Action action = event.getAction();
-        if (!action.equals(Action.RIGHT_CLICK_AIR) && !action.equals(Action.RIGHT_CLICK_BLOCK)) {
-            return;
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onTeleport(PlayerTeleportEvent event) {
+        if (TeleportCause.ENDER_PEARL.equals(event.getCause()) && !event.getPlayer().hasPermission("pearlnerf.tag")) {
+            ctHook.tagPlayer(event.getPlayer().getName());
         }
-
-        Player player = event.getPlayer();
-        ItemStack thrown = player.getItemInHand();
-
-        if (thrown == null || thrown.getType() != Material.ENDER_PEARL) {
-            return;
-        }
-
-        if (configurationContext.applySlownessDebuff) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, configurationContext.slownessDebuffDuration * 20, 2), true);
-        }
-
-        if (!player.hasPermission("pearlnerf.tag")) {
-            return;
-        }
-
-        Bukkit.getServer().getPluginManager().callEvent(new EntityDamageByEntityEvent(player, player, DamageCause.ENTITY_ATTACK, 0));
     }
 }

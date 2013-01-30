@@ -1,10 +1,11 @@
 name: PearlNerf
-main: com.github.indiv0.pearlnerf.PearlNerf
-version: 1.0.0
+version: ${project.version}
 load: POSTWORLD
 author: Indiv0
+main: com.github.indiv0.pearlnerf.PearlNerfPlugin
+depend: [CombatTag]
 
 permissions:
   pearlnerf.tag:
     description: Controls whether or not a player is exempt from PearlNerf combat tagging
-    default: true
+    default: false
