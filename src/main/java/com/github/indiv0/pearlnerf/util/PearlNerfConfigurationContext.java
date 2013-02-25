@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import ashulman.mbapi.plugin.MbapiPlugin;
+import ashulman.mbapi.MbapiPlugin;
 import ashulman.mbapi.util.ConfigurationContext;
 
 import com.github.indiv0.pearlnerf.CombatTagHook;

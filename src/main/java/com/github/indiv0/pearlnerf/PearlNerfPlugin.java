@@ -1,6 +1,6 @@
 package com.github.indiv0.pearlnerf;
 
-import ashulman.mbapi.plugin.MbapiPlugin;
+import ashulman.mbapi.MbapiPlugin;
 
 import com.github.indiv0.pearlnerf.events.PearlNerfListener;
 import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
