@@ -4,8 +4,3 @@ load: POSTWORLD
 author: Indiv0
 main: com.github.indiv0.pearlnerf.PearlNerfPlugin
 depend: [CombatTag]
-
-permissions:
-  pearlnerf.tag:
-    description: Controls whether or not a player is exempt from PearlNerf combat tagging
-    default: false

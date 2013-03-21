@@ -1,7 +1,7 @@
 PearlNerf [![Travis CI](https://secure.travis-ci.org/Indiv0/PearlNerf.png)](http://travis-ci.org/#!/Indiv0/PearlNerf)
 =============
 
-PearlNerf is a plugin for bukkit which is used for nerfing the drop rates and capabilities of ender pearls in order to allow for fairer combat on PVP servers.
+PearlNerf is a plugin for bukkit which is used for nerfing the capabilities of ender pearls in order to allow for fairer combat on PVP servers.
 
 Download:
 --------------------

@@ -6,11 +6,6 @@
 
 #======== Settings ==========#
 
-## Whether or not enderman enderpearl drop limiting is enabled.
-# Default: true
-limitPearlDrops: true
-
-## The chance of recieving a pearl (as a percentage of the vanilla rate), if limitPearlDrops is true.
-# Note: must be a value from 0.00 - 1.00
-# Default: 0.95
-pearlDropRate: 0.95
+## Time (in seconds) between thrown pearls when in combat
+# Default: 10
+pearlCooldownTime: 10
