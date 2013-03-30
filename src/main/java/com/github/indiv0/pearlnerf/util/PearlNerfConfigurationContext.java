@@ -10,10 +10,10 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
 
     public PearlNerfConfigurationContext(MbapiPlugin plugin) {
         super(plugin);
-        
+
         plugin.saveDefaultConfig();
         FileConfiguration config = plugin.getConfig();
-        
+
         pearlCooldownTime = config.getInt("pearlCooldownTime", 0);
     }
 }

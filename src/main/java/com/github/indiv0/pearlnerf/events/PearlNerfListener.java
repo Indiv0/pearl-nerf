@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -53,7 +54,7 @@ public class PearlNerfListener implements Listener {
                 if (end > time) {
                     String remaining = formatter.format((end - time) / 1000d);
                     if (!remaining.equals("0.0")) {
-                        player.sendMessage(remaining);
+                        player.sendMessage(ChatColor.GRAY + "Ender pearl is on cooldown. Please wait another " + remaining + " seconds.");
                         event.setCancelled(true);
 
                         ItemStack inHand = player.getItemInHand();
