@@ -2,8 +2,8 @@ package com.github.indiv0.pearlnerf.util;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import ashulman.mbapi.MbapiPlugin;
-import ashulman.mbapi.util.ConfigurationContext;
+import com.amshulman.mbapi.MbapiPlugin;
+import com.amshulman.mbapi.util.ConfigurationContext;
 
 public class PearlNerfConfigurationContext extends ConfigurationContext {
     public final int pearlCooldownTime;

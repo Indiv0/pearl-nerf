@@ -16,10 +16,9 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
-import ashulman.mbapi.util.CoreTypes;
-import ashulman.typesafety.TypeSafeMap;
-import ashulman.typesafety.impl.TypeSafeMapImpl;
-
+import com.amshulman.mbapi.util.CoreTypes;
+import com.amshulman.typesafety.TypeSafeMap;
+import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 import com.trc202.CombatTag.CombatTag;
 import com.trc202.CombatTagApi.CombatTagApi;

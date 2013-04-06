@@ -5,7 +5,6 @@
 
 	<groupId>com.github.indiv0</groupId>
 	<artifactId>pearl-nerf</artifactId>
-	<version>1.2</version>
 	<name>PearlNerf</name>
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
 
@@ -15,9 +14,9 @@
 	</properties>
 
 	<parent>
-		<groupId>ashulman</groupId>
+		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.1</version>
+		<version>0.6</version>
 	</parent>
 
 	<distributionManagement>
@@ -33,7 +32,7 @@
 			<artifactId>bukkit</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>ashulman</groupId>
+			<groupId>com.amshulman</groupId>
 			<artifactId>mbapi</artifactId>
 		</dependency>
 		<dependency>
@@ -44,45 +43,6 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-to-local-server</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${project.version}</version>
-									<type>${project.packaging}</type>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>/storage/server/plugins</outputDirectory>
-							<stripVersion>true</stripVersion>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -100,4 +60,5 @@
 			</resource>
 		</resources>
 	</build>
+	<version>${mbapi.version}.0</version>
 </project>
