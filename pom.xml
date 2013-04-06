@@ -9,7 +9,7 @@
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
 
 	<properties>
-		<combattag.version>5.7.2</combattag.version>
+		<combattag.version>5.8.7</combattag.version>
 		<altDeploymentRepository>-DaltDeploymentRepository=repo::default::file:../../indiv0-mvn-repo/releases</altDeploymentRepository>
 	</properties>
 
@@ -39,6 +39,7 @@
 			<groupId>com.github.trc202</groupId>
 			<artifactId>combat-tag</artifactId>
 			<version>${combattag.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
