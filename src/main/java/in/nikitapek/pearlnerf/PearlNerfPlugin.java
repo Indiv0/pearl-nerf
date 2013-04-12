@@ -1,8 +1,9 @@
-package com.github.indiv0.pearlnerf;
+package in.nikitapek.pearlnerf;
+
+import in.nikitapek.pearlnerf.events.PearlNerfListener;
+import in.nikitapek.pearlnerf.util.PearlNerfConfigurationContext;
 
 import com.amshulman.mbapi.MbapiPlugin;
-import com.github.indiv0.pearlnerf.events.PearlNerfListener;
-import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 
 public class PearlNerfPlugin extends MbapiPlugin {
     @Override

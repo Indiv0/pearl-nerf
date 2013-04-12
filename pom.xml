@@ -3,14 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.indiv0</groupId>
+	<groupId>in.nikitapek</groupId>
 	<artifactId>pearl-nerf</artifactId>
 	<name>PearlNerf</name>
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
+	<version>${mbapi.version}.0</version>
 
 	<properties>
 		<combattag.version>5.8.7</combattag.version>
-		<altDeploymentRepository>-DaltDeploymentRepository=repo::default::file:../../indiv0-mvn-repo/releases</altDeploymentRepository>
 	</properties>
 
 	<parent>
@@ -18,13 +18,6 @@
 		<artifactId>bukkit-parent</artifactId>
 		<version>0.6</version>
 	</parent>
-
-	<distributionManagement>
-		<repository>
-			<id>repo</id>
-			<url>https://github.com/Indiv0/indiv0-mvn-repo/raw/master/releases/</url>
-		</repository>
-	</distributionManagement>
 
 	<dependencies>
 		<dependency>
@@ -61,5 +54,4 @@
 			</resource>
 		</resources>
 	</build>
-	<version>${mbapi.version}.0</version>
 </project>

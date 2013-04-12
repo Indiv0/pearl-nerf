@@ -1,4 +1,6 @@
-package com.github.indiv0.pearlnerf.events;
+package in.nikitapek.pearlnerf.events;
+
+import in.nikitapek.pearlnerf.util.PearlNerfConfigurationContext;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -19,7 +21,6 @@ import org.bukkit.inventory.ItemStack;
 import com.amshulman.mbapi.util.CoreTypes;
 import com.amshulman.typesafety.TypeSafeMap;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
-import com.github.indiv0.pearlnerf.util.PearlNerfConfigurationContext;
 import com.trc202.CombatTag.CombatTag;
 import com.trc202.CombatTagApi.CombatTagApi;
 

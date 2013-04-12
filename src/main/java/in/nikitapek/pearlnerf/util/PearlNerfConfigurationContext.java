@@ -1,4 +1,4 @@
-package com.github.indiv0.pearlnerf.util;
+package in.nikitapek.pearlnerf.util;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
