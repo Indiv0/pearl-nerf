@@ -2,5 +2,5 @@ name: PearlNerf
 version: ${project.version}
 load: POSTWORLD
 author: Indiv0
-main: com.github.indiv0.pearlnerf.PearlNerfPlugin
+main: in.nikitapek.pearlnerf.PearlNerfPlugin
 depend: [CombatTag]
