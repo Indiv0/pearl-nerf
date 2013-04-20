@@ -7,6 +7,9 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -19,6 +22,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
 import com.amshulman.mbapi.util.CoreTypes;
+import com.amshulman.mbapi.util.LocationUtil;
 import com.amshulman.typesafety.TypeSafeMap;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.trc202.CombatTag.CombatTag;
@@ -68,11 +72,93 @@ public class PearlNerfListener implements Listener {
         }
     }
 
+    /*
+     * The following code is originally from Humbug (https://github.com/erocs/Humbug) and is included under the following license:
+     *
+     * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+     * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+     * Neither the name of Erocs nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+     */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
-        if (TeleportCause.ENDER_PEARL.equals(event.getCause()) && ctAPI.isInCombat(event.getPlayer())) {
+        if (!TeleportCause.ENDER_PEARL.equals(event.getCause())) {
+            return;
+        }
+
+        if (ctAPI.isInCombat(event.getPlayer())) {
             ctAPI.tagPlayer(event.getPlayer());
         }
+
+        Location destination = event.getTo();
+        World world = destination.getWorld();
+
+        Block toBlock = world.getBlockAt(destination);
+        Block aboveBlock = world.getBlockAt(destination.getBlockX(), destination.getBlockY() + 1, destination.getBlockZ());
+        Block belowBlock = world.getBlockAt(destination.getBlockX(), destination.getBlockY() - 1, destination.getBlockZ());
+        boolean lowerBlockBypass = false;
+        double height = 0.0;
+        switch (toBlock.getType()) {
+            case CHEST:
+            case ENDER_CHEST:
+                // Probably never will get hit directly
+                height = 0.875;
+                break;
+            case STEP:
+                lowerBlockBypass = true;
+                height = 0.5;
+                break;
+            case WATER_LILY:
+                height = 0.016;
+                break;
+            case ENCHANTMENT_TABLE:
+                lowerBlockBypass = true;
+                height = 0.75;
+                break;
+            case BED:
+            case BED_BLOCK:
+                // This one is tricky, since even with a height offset of 2.5, it still glitches.
+                // Disabling teleporting on top of beds for now by leaving lowerBlockBypass false.
+                break;
+            case FLOWER_POT:
+            case FLOWER_POT_ITEM:
+                height = 0.375;
+                break;
+            case SKULL: // Probably never will get hit directly
+                height = 0.5;
+                break;
+            default:
+                break;
+        }
+        // Check if the below block is difficult
+        // This is added because if you face downward directly on a gate, it will teleport your feet INTO the gate, thus bypassing the gate until you leave that block.
+        switch (belowBlock.getType()) {
+            case FENCE:
+            case FENCE_GATE:
+            case NETHER_FENCE:
+            case COBBLE_WALL:
+                height = 0.5;
+                break;
+            default:
+                break;
+        }
+
+        boolean upperBlockBypass = false;
+        if (height >= 0.5) {
+            Block aboveHeadBlock = world.getBlockAt(aboveBlock.getX(), aboveBlock.getY() + 1, aboveBlock.getZ());
+            if (false == aboveHeadBlock.getType().isSolid()) {
+                height = 0.5;
+            } else {
+                upperBlockBypass = true; // Cancel this event. What's happening is the user is going to get stuck due to the height.
+            }
+        }
+
+        if (aboveBlock.getType().isSolid() || (toBlock.getType().isSolid() && !lowerBlockBypass) || upperBlockBypass) {
+            event.setCancelled(true);
+            return;
+        }
+
+        destination = LocationUtil.center(destination.getWorld(), destination.getX(), destination.getY() + height, destination.getZ(), destination.getPitch(), destination.getYaw());
     }
 
     private static long unpackLong(Long l) {
