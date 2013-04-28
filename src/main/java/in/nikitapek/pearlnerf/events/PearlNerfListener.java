@@ -51,11 +51,11 @@ public class PearlNerfListener implements Listener {
         if (EntityType.ENDER_PEARL.equals(item.getType()) && item.getShooter() instanceof Player) {
             Player player = (Player) item.getShooter();
 
-            if (ctAPI.isInCombat(player)) {
-                long end = unpackLong(cooldownTimes.get(player.getName()));
-                long time = System.currentTimeMillis();
+            long end = unpackLong(cooldownTimes.get(player.getName()));
+            long time = System.currentTimeMillis();
 
-                if (end > time) {
+            if (end > time) {
+                if (ctAPI.isInCombat(player)) {
                     String remaining = formatter.format((end - time) / 1000d);
                     if (!remaining.equals("0.0")) {
                         player.sendMessage(ChatColor.GRAY + "Ender pearl is on cooldown. Please wait another " + remaining + " seconds.");
@@ -65,9 +65,9 @@ public class PearlNerfListener implements Listener {
                         inHand.setAmount(inHand.getAmount() + 1);
                         player.setHealth(player.getHealth() - 1);
                     }
-                } else {
-                    cooldownTimes.put(player.getName(), time + cooldownMillis);
                 }
+            } else {
+                cooldownTimes.put(player.getName(), time + cooldownMillis);
             }
         }
     }
