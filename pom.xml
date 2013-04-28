@@ -7,7 +7,7 @@
 	<artifactId>pearl-nerf</artifactId>
 	<name>PearlNerf</name>
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
-	<version>${mbapi.version}.0</version>
+	<version>${mbapi.version}.1</version>
 
 	<properties>
 		<combattag.version>5.8.7</combattag.version>
