@@ -12,8 +12,7 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
         super(plugin);
 
         plugin.saveDefaultConfig();
-        FileConfiguration config = plugin.getConfig();
 
-        pearlCooldownTime = config.getInt("pearlCooldownTime", 0);
+        pearlCooldownTime = plugin.getConfig().getInt("pearlCooldownTime", 0);
     }
 }

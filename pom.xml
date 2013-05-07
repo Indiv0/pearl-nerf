@@ -6,28 +6,31 @@
 	<groupId>in.nikitapek</groupId>
 	<artifactId>pearl-nerf</artifactId>
 	<name>PearlNerf</name>
-	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
 	<version>${mbapi.version}.1</version>
+	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
 
 	<properties>
-		<combattag.version>5.8.7</combattag.version>
+		<combattag.version>5.8.9</combattag.version>
 	</properties>
 
 	<parent>
 		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.7</version>
+		<version>0.8</version>
 	</parent>
 
 	<dependencies>
+		<!-- Bukkit -->
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
 		</dependency>
+		<!-- Mbapi -->
 		<dependency>
 			<groupId>com.amshulman</groupId>
 			<artifactId>mbapi</artifactId>
 		</dependency>
+		<!-- CombatTag -->
 		<dependency>
 			<groupId>com.github.trc202</groupId>
 			<artifactId>combat-tag</artifactId>
@@ -53,5 +56,32 @@
 				</excludes>
 			</resource>
 		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-to-local-server</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+									<type>${project.packaging}</type>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>/storage/server/plugins</outputDirectory>
+							<stripVersion>false</stripVersion>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 </project>

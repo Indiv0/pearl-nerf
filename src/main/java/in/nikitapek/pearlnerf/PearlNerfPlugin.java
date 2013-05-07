@@ -8,10 +8,8 @@ import com.amshulman.mbapi.MbapiPlugin;
 public class PearlNerfPlugin extends MbapiPlugin {
     @Override
     public void onEnable() {
-        // Initializes the configurationContext.
         PearlNerfConfigurationContext configurationContext = new PearlNerfConfigurationContext(this);
 
-        // Registers the event handler and the command executor.
         registerEventHandler(new PearlNerfListener(configurationContext));
 
         super.onEnable();
