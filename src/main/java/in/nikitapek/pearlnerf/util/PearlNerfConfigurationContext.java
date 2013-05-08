@@ -1,7 +1,5 @@
 package in.nikitapek.pearlnerf.util;
 
-import org.bukkit.configuration.file.FileConfiguration;
-
 import com.amshulman.mbapi.MbapiPlugin;
 import com.amshulman.mbapi.util.ConfigurationContext;
 
