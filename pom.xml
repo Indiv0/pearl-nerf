@@ -6,7 +6,7 @@
 	<groupId>in.nikitapek</groupId>
 	<artifactId>pearl-nerf</artifactId>
 	<name>PearlNerf</name>
-	<version>${mbapi.version}.1</version>
+	<version>${mbapi.version}.0</version>
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
 
 	<properties>
@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.8</version>
+		<version>0.9</version>
 	</parent>
 
 	<dependencies>
@@ -40,22 +40,6 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>plugin.yml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>plugin.yml</exclude>
-				</excludes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
