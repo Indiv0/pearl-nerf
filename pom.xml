@@ -10,27 +10,32 @@
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
 
 	<properties>
-		<combattag.version>5.8.9</combattag.version>
+		<combattag.version>5.9.0</combattag.version>
 	</properties>
 
 	<parent>
 		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.9</version>
+		<version>0.10</version>
 	</parent>
 
+	<repositories>
+		<repository>
+			<id>minerap-repo</id>
+			<name>MinerAp</name>
+			<url>https://www.minerap.com/repository/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
-		<!-- Bukkit -->
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
 		</dependency>
-		<!-- Mbapi -->
 		<dependency>
 			<groupId>com.amshulman</groupId>
 			<artifactId>mbapi</artifactId>
 		</dependency>
-		<!-- CombatTag -->
 		<dependency>
 			<groupId>com.github.trc202</groupId>
 			<artifactId>combat-tag</artifactId>
