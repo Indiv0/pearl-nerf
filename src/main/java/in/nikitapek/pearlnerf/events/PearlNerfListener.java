@@ -28,15 +28,16 @@ import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.trc202.CombatTag.CombatTag;
 import com.trc202.CombatTagApi.CombatTagApi;
 
-public final class PearlNerfListener implements Listener {
-    private static final DecimalFormat FORMATTER = new DecimalFormat("##0.0");
+public class PearlNerfListener implements Listener {
+
+    private static DecimalFormat formatter = new DecimalFormat("##0.0");
 
     private final CombatTagApi ctAPI;
     private final TypeSafeMap<String, Long> cooldownTimes;
 
     private final int cooldownMillis;
 
-    public PearlNerfListener(final PearlNerfConfigurationContext configurationContext) {
+    public PearlNerfListener(PearlNerfConfigurationContext configurationContext) {
         ctAPI = new CombatTagApi((CombatTag) Bukkit.getPluginManager().getPlugin("CombatTag"));
         cooldownTimes = new TypeSafeMapImpl<String, Long>(new HashMap<String, Long>(), CoreTypes.STRING, CoreTypes.LONG);
 
@@ -44,23 +45,23 @@ public final class PearlNerfListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onEnderPearlThrow(final ProjectileLaunchEvent event) {
-        final Projectile item = event.getEntity();
+    public void onEnderPearlThrow(ProjectileLaunchEvent event) {
+        Projectile item = event.getEntity();
 
         if (EntityType.ENDER_PEARL.equals(item.getType()) && item.getShooter() instanceof Player) {
-            final Player player = (Player) item.getShooter();
+            Player player = (Player) item.getShooter();
 
-            final long end = unpackLong(cooldownTimes.get(player.getName()));
-            final long time = System.currentTimeMillis();
+            long end = unpackLong(cooldownTimes.get(player.getName()));
+            long time = System.currentTimeMillis();
 
             if (end > time) {
                 if (ctAPI.isInCombat(player)) {
-                    final String remaining = FORMATTER.format((end - time) / 1000d);
-                    if (!"0.0".equals(remaining)) {
+                    String remaining = formatter.format((end - time) / 1000d);
+                    if (!remaining.equals("0.0")) {
                         player.sendMessage(ChatColor.GRAY + "Ender pearl is on cooldown. Please wait another " + remaining + " seconds.");
                         event.setCancelled(true);
 
-                        final ItemStack inHand = player.getItemInHand();
+                        ItemStack inHand = player.getItemInHand();
                         inHand.setAmount(inHand.getAmount() + 1);
                         player.setHealth(player.getHealth() - 1);
                     }
@@ -73,13 +74,14 @@ public final class PearlNerfListener implements Listener {
 
     /*
      * The following code is originally from Humbug (https://github.com/erocs/Humbug) and is included under the following license:
+     *
      * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
      * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
      * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
      * Neither the name of Erocs nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onTeleport(final PlayerTeleportEvent event) {
+    public void onTeleport(PlayerTeleportEvent event) {
         if (!TeleportCause.ENDER_PEARL.equals(event.getCause())) {
             return;
         }
@@ -89,11 +91,11 @@ public final class PearlNerfListener implements Listener {
         }
 
         Location destination = event.getTo();
-        final World world = destination.getWorld();
+        World world = destination.getWorld();
 
-        final Block toBlock = world.getBlockAt(destination);
-        final Block aboveBlock = world.getBlockAt(destination.getBlockX(), destination.getBlockY() + 1, destination.getBlockZ());
-        final Block belowBlock = world.getBlockAt(destination.getBlockX(), destination.getBlockY() - 1, destination.getBlockZ());
+        Block toBlock = world.getBlockAt(destination);
+        Block aboveBlock = world.getBlockAt(destination.getBlockX(), destination.getBlockY() + 1, destination.getBlockZ());
+        Block belowBlock = world.getBlockAt(destination.getBlockX(), destination.getBlockY() - 1, destination.getBlockZ());
         boolean lowerBlockBypass = false;
         double height = 0.0;
         switch (toBlock.getType()) {
@@ -143,8 +145,8 @@ public final class PearlNerfListener implements Listener {
 
         boolean upperBlockBypass = false;
         if (height >= 0.5) {
-            final Block aboveHeadBlock = world.getBlockAt(aboveBlock.getX(), aboveBlock.getY() + 1, aboveBlock.getZ());
-            if (!aboveHeadBlock.getType().isSolid()) {
+            Block aboveHeadBlock = world.getBlockAt(aboveBlock.getX(), aboveBlock.getY() + 1, aboveBlock.getZ());
+            if (false == aboveHeadBlock.getType().isSolid()) {
                 height = 0.5;
             } else {
                 upperBlockBypass = true; // Cancel this event. What's happening is the user is going to get stuck due to the height.
@@ -159,7 +161,7 @@ public final class PearlNerfListener implements Listener {
         destination = LocationUtil.center(destination.getWorld(), destination.getX(), destination.getY() + height, destination.getZ(), destination.getPitch(), destination.getYaw());
     }
 
-    private static long unpackLong(final Long l) {
+    private static long unpackLong(Long l) {
         return (l == null) ? 0 : l;
     }
 }

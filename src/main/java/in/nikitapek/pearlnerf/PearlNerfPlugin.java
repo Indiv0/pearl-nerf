@@ -5,10 +5,12 @@ import in.nikitapek.pearlnerf.util.PearlNerfConfigurationContext;
 
 import com.amshulman.mbapi.MbapiPlugin;
 
-public final class PearlNerfPlugin extends MbapiPlugin {
+public class PearlNerfPlugin extends MbapiPlugin {
     @Override
     public void onEnable() {
-        registerEventHandler(new PearlNerfListener(new PearlNerfConfigurationContext(this)));
+        PearlNerfConfigurationContext configurationContext = new PearlNerfConfigurationContext(this);
+
+        registerEventHandler(new PearlNerfListener(configurationContext));
 
         super.onEnable();
     }
