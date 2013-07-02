@@ -8,6 +8,7 @@
 	<name>PearlNerf</name>
 	<version>${mbapi.version}.0</version>
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
+	<url>http://dev.bukkit.org/server-mods/chestempty/</url>
 
 	<properties>
 		<combattag.version>5.9.0</combattag.version>
@@ -28,14 +29,17 @@
 	</repositories>
 
 	<dependencies>
+		<!-- Spigot -->
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
 		</dependency>
+		<!-- Mbapi -->
 		<dependency>
 			<groupId>com.amshulman</groupId>
 			<artifactId>mbapi</artifactId>
 		</dependency>
+		<!-- CombatTag -->
 		<dependency>
 			<groupId>com.github.trc202</groupId>
 			<artifactId>combat-tag</artifactId>
