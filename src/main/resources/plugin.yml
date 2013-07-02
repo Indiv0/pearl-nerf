@@ -4,3 +4,4 @@ load: POSTWORLD
 version: ${project.version}
 author: Indiv0
 depend: [CombatTag]
+dev-url: http://github.com/Indiv0/PearlNerf/
