@@ -8,7 +8,7 @@
 	<name>PearlNerf</name>
 	<version>${mbapi.version}.0</version>
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
-	<url>http://dev.bukkit.org/server-mods/chestempty/</url>
+	<url>http://dev.bukkit.org/server-mods/pearlnerf/</url>
 
 	<properties>
 		<combattag.version>5.9.0</combattag.version>
