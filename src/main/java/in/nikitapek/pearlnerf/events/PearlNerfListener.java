@@ -1,10 +1,12 @@
 package in.nikitapek.pearlnerf.events;
 
+import com.amshulman.mbapi.util.CoreTypes;
+import com.amshulman.mbapi.util.LocationUtil;
+import com.amshulman.typesafety.TypeSafeMap;
+import com.amshulman.typesafety.impl.TypeSafeMapImpl;
+import com.trc202.CombatTag.CombatTag;
+import com.trc202.CombatTagApi.CombatTagApi;
 import in.nikitapek.pearlnerf.util.PearlNerfConfigurationContext;
-
-import java.text.DecimalFormat;
-import java.util.HashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,12 +23,8 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
-import com.amshulman.mbapi.util.CoreTypes;
-import com.amshulman.mbapi.util.LocationUtil;
-import com.amshulman.typesafety.TypeSafeMap;
-import com.amshulman.typesafety.impl.TypeSafeMapImpl;
-import com.trc202.CombatTag.CombatTag;
-import com.trc202.CombatTagApi.CombatTagApi;
+import java.text.DecimalFormat;
+import java.util.HashMap;
 
 public class PearlNerfListener implements Listener {
 
@@ -48,26 +46,38 @@ public class PearlNerfListener implements Listener {
     public void onEnderPearlThrow(ProjectileLaunchEvent event) {
         Projectile item = event.getEntity();
 
-        if (EntityType.ENDER_PEARL.equals(item.getType()) && item.getShooter() instanceof Player) {
-            Player player = (Player) item.getShooter();
+        // Checks if the projectile being launched is an enderpearl.
+        if (!EntityType.ENDER_PEARL.equals(item.getType())) {
+            return;
+        }
 
-            long end = unpackLong(cooldownTimes.get(player.getName()));
-            long time = System.currentTimeMillis();
+        // Checks if the shooter of the projectile is a player.
+        if (!(item.getShooter() instanceof Player)) {
+            return;
+        }
 
-            if (end > time) {
-                if (ctAPI.isInCombat(player)) {
-                    String remaining = formatter.format((end - time) / 1000d);
-                    if (!remaining.equals("0.0")) {
-                        player.sendMessage(ChatColor.GRAY + "Ender pearl is on cooldown. Please wait another " + remaining + " seconds.");
-                        event.setCancelled(true);
+        Player player = (Player) item.getShooter();
 
-                        ItemStack inHand = player.getItemInHand();
-                        inHand.setAmount(inHand.getAmount() + 1);
-                        player.setHealth(player.getHealth() - 1);
-                    }
+        // Retrieves the time at which the pearl cooldown for the player will be complete.
+        long end = unpackLong(cooldownTimes.get(player.getName()));
+        long time = System.currentTimeMillis();
+
+        if (end <= time) {
+            // If the cooldown has completed for a player, then the cooldown is once again restarted.
+            cooldownTimes.put(player.getName(), time + cooldownMillis);
+        } else {
+            // If the player is combat tagged, then the time remaining in the cooldown is sent to the player in a message.
+            // The player also fails to teleport with the pearl, and loses one health point.
+            if (ctAPI.isInCombat(player)) {
+                String remaining = formatter.format((end - time) / 1000d);
+                if (!remaining.equals("0.0")) {
+                    player.sendMessage(ChatColor.GRAY + "Ender pearl is on cooldown. Please wait another " + remaining + " seconds.");
+                    event.setCancelled(true);
+
+                    ItemStack inHand = player.getItemInHand();
+                    inHand.setAmount(inHand.getAmount() + 1);
+                    player.setHealth(player.getHealth() - 1);
                 }
-            } else {
-                cooldownTimes.put(player.getName(), time + cooldownMillis);
             }
         }
     }
