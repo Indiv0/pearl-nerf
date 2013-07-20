@@ -46,13 +46,8 @@ public class PearlNerfListener implements Listener {
     public void onEnderPearlThrow(ProjectileLaunchEvent event) {
         Projectile item = event.getEntity();
 
-        // Checks if the projectile being launched is an enderpearl.
-        if (!EntityType.ENDER_PEARL.equals(item.getType())) {
-            return;
-        }
-
-        // Checks if the shooter of the projectile is a player.
-        if (!(item.getShooter() instanceof Player)) {
+        // Checks if the projectile is an enderpearl launched by a player
+        if (!(EntityType.ENDER_PEARL.equals(item.getType()) && item.getShooter() instanceof Player)) {
             return;
         }
 
