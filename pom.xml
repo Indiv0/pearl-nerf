@@ -11,13 +11,13 @@
 	<url>http://dev.bukkit.org/server-mods/pearlnerf/</url>
 
 	<properties>
-		<combattag.version>5.9.0</combattag.version>
+		<combattag.version>5.9.2</combattag.version>
 	</properties>
 
 	<parent>
 		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.11</version>
+		<version>0.12</version>
 	</parent>
 
 	<repositories>
