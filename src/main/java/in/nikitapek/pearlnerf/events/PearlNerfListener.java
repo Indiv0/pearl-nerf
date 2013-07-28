@@ -1,12 +1,10 @@
 package in.nikitapek.pearlnerf.events;
 
-import com.amshulman.mbapi.util.CoreTypes;
-import com.amshulman.mbapi.util.LocationUtil;
-import com.amshulman.typesafety.TypeSafeMap;
-import com.amshulman.typesafety.impl.TypeSafeMapImpl;
-import com.trc202.CombatTag.CombatTag;
-import com.trc202.CombatTagApi.CombatTagApi;
 import in.nikitapek.pearlnerf.util.PearlNerfConfigurationContext;
+
+import java.text.DecimalFormat;
+import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -23,8 +21,11 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
-import java.text.DecimalFormat;
-import java.util.HashMap;
+import com.amshulman.mbapi.util.CoreTypes;
+import com.amshulman.typesafety.TypeSafeMap;
+import com.amshulman.typesafety.impl.TypeSafeMapImpl;
+import com.trc202.CombatTag.CombatTag;
+import com.trc202.CombatTagApi.CombatTagApi;
 
 public class PearlNerfListener implements Listener {
 
@@ -163,7 +164,9 @@ public class PearlNerfListener implements Listener {
             return;
         }
 
-        destination = LocationUtil.center(destination.getWorld(), destination.getX(), destination.getY() + height, destination.getZ(), destination.getPitch(), destination.getYaw());
+        destination.setX(Math.floor(destination.getX()) + 0.5d);
+        destination.setY(Math.floor(destination.getY()) + height);
+        destination.setZ(Math.floor(destination.getZ()) + 0.5d);
     }
 
     private static long unpackLong(Long l) {
