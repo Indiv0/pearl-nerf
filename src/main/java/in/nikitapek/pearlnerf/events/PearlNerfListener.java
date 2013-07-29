@@ -152,7 +152,7 @@ public class PearlNerfListener implements Listener {
         boolean upperBlockBypass = false;
         if (height >= 0.5) {
             Block aboveHeadBlock = world.getBlockAt(aboveBlock.getX(), aboveBlock.getY() + 1, aboveBlock.getZ());
-            if (false == aboveHeadBlock.getType().isSolid()) {
+            if (!aboveHeadBlock.getType().isSolid()) {
                 height = 0.5;
             } else {
                 upperBlockBypass = true; // Cancel this event. What's happening is the user is going to get stuck due to the height.
