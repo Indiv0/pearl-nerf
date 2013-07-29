@@ -37,7 +37,7 @@ public class PearlNerfListener implements Listener {
 
     public PearlNerfListener(PearlNerfConfigurationContext configurationContext) {
         ctAPI = new CombatTagApi((CombatTag) Bukkit.getPluginManager().getPlugin("CombatTag"));
-        cooldownTimes = new TypeSafeMapImpl<String, Long>(new HashMap<String, Long>(), CoreTypes.STRING, CoreTypes.LONG);
+        cooldownTimes = new TypeSafeMapImpl<>(new HashMap<String, Long>(), CoreTypes.STRING, CoreTypes.LONG);
 
         cooldownMillis = configurationContext.pearlCooldownTime * 1000;
     }
