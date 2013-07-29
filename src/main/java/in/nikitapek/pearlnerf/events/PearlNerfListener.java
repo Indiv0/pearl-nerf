@@ -28,7 +28,7 @@ import com.trc202.CombatTag.CombatTag;
 import com.trc202.CombatTagApi.CombatTagApi;
 
 public class PearlNerfListener implements Listener {
-    private static DecimalFormat formatter = new DecimalFormat("##0.0");
+    private static final DecimalFormat formatter = new DecimalFormat("##0.0");
 
     private final CombatTagApi ctAPI;
     private final TypeSafeMap<String, Long> cooldownTimes;
