@@ -44,22 +44,23 @@ public final class PearlNerfListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEnderPearlThrow(ProjectileLaunchEvent event) {
-        Projectile item = event.getEntity();
+        final Projectile item = event.getEntity();
 
         // Checks if the projectile is an enderpearl launched by a player
         if (!(EntityType.ENDER_PEARL.equals(item.getType()) && item.getShooter() instanceof Player)) {
             return;
         }
 
-        Player player = (Player) item.getShooter();
+        final Player player = (Player) item.getShooter();
+        final String playerName = player.getName();
 
         // Retrieves the time at which the pearl cooldown for the player will be complete.
-        long end = unpackLong(cooldownTimes.get(player.getName()));
+        long end = unpackLong(cooldownTimes.get(playerName));
         long time = System.currentTimeMillis();
 
         if (end <= time) {
             // If the cooldown has completed for a player, then the cooldown is once again restarted.
-            cooldownTimes.put(player.getName(), time + cooldownMillis);
+            cooldownTimes.put(playerName, time + cooldownMillis);
             return;
         }
 
