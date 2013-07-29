@@ -54,18 +54,17 @@ public final class PearlNerfListener implements Listener {
         final Player player = (Player) item.getShooter();
         final String playerName = player.getName();
 
-        // Retrieves the time at which the pearl cooldown for the player will be complete.
+        // Retrieves the time at which the pearl cooldown for the player will be complete, as well as the current time.
         long end = unpackLong(cooldownTimes.get(playerName));
         long time = System.currentTimeMillis();
 
+        // If the cooldown has completed for a player, then the cooldown is once again restarted.
         if (end <= time) {
-            // If the cooldown has completed for a player, then the cooldown is once again restarted.
             cooldownTimes.put(playerName, time + cooldownMillis);
             return;
         }
 
-        // If the player is combat tagged, then the time remaining in the cooldown is sent to the player in a message.
-        // The player also fails to teleport with the pearl, and loses one health point.
+        // If the player is not combat-tagged, they are unaffected by the pearl cooldown.
         if (!ctAPI.isInCombat(player)) {
             return;
         }
@@ -75,9 +74,11 @@ public final class PearlNerfListener implements Listener {
             return;
         }
 
+        // The time remaining in the cooldown is sent to the player in a message.
         player.sendMessage(ChatColor.GRAY + "Ender pearl is on cooldown. Please wait another " + remaining + " seconds.");
-        event.setCancelled(true);
 
+        //The player fails to teleport with the pearl, and loses one health point.
+        event.setCancelled(true);
         ItemStack inHand = player.getItemInHand();
         inHand.setAmount(inHand.getAmount() + 1);
         player.setHealth(player.getHealth() - 1);
