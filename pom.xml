@@ -6,7 +6,7 @@
 	<groupId>in.nikitapek</groupId>
 	<artifactId>pearl-nerf</artifactId>
 	<name>PearlNerf</name>
-	<version>${mbapi.version}.3-SNAPSHOT</version>
+	<version>${mbapi.version}.0-SNAPSHOT</version>
 	<description>A plugin to nerf enderpearl functionality on PVP-based servers.</description>
 	<url>http://dev.bukkit.org/server-mods/pearlnerf/</url>
 
@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>com.amshulman</groupId>
 		<artifactId>bukkit-parent</artifactId>
-		<version>0.12</version>
+		<version>0.13</version>
 	</parent>
 
 	<distributionManagement>
