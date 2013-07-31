@@ -27,7 +27,7 @@ import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import com.trc202.CombatTag.CombatTag;
 import com.trc202.CombatTagApi.CombatTagApi;
 
-public final class PearlNerfListener implements Listener {
+public class PearlNerfListener implements Listener {
     private static final DecimalFormat formatter = new DecimalFormat("##0.0");
 
     private final CombatTagApi ctAPI;
@@ -44,15 +44,15 @@ public final class PearlNerfListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEnderPearlThrow(ProjectileLaunchEvent event) {
-        final Projectile item = event.getEntity();
+        Projectile item = event.getEntity();
 
         // Checks if the projectile is an enderpearl launched by a player
         if (!(EntityType.ENDER_PEARL.equals(item.getType()) && item.getShooter() instanceof Player)) {
             return;
         }
 
-        final Player player = (Player) item.getShooter();
-        final String playerName = player.getName();
+        Player player = (Player) item.getShooter();
+        String playerName = player.getName();
 
         // Retrieves the time at which the pearl cooldown for the player will be complete, as well as the current time.
         long end = unpackLong(cooldownTimes.get(playerName));
@@ -77,7 +77,7 @@ public final class PearlNerfListener implements Listener {
         // The time remaining in the cooldown is sent to the player in a message.
         player.sendMessage(ChatColor.GRAY + "Ender pearl is on cooldown. Please wait another " + remaining + " seconds.");
 
-        //The player fails to teleport with the pearl, and loses one health point.
+        // The player fails to teleport with the pearl, and loses one health point.
         event.setCancelled(true);
         ItemStack inHand = player.getItemInHand();
         inHand.setAmount(inHand.getAmount() + 1);
