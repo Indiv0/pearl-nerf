@@ -36,6 +36,8 @@ public class PearlNerfListener implements Listener {
 
     private final int cooldownMillis;
     private final boolean useCombatTag;
+    private final boolean requireCombatTagForEffect;
+    private final boolean tagOnPearl;
 
     private PearlNerfCombatTagBridge combatTagBridge;
     private boolean combatTagBridged = false;
@@ -46,6 +48,8 @@ public class PearlNerfListener implements Listener {
         // Retrieve configuration options.
         cooldownMillis = configurationContext.pearlCooldownTime * 1000;
         useCombatTag = configurationContext.useCombatTag;
+        requireCombatTagForEffect = configurationContext.requireCombatTagForEffect;
+        tagOnPearl = configurationContext.tagOnPearl;
 
         if (!useCombatTag) {
             return;
@@ -90,7 +94,7 @@ public class PearlNerfListener implements Listener {
         }
 
         // If the player is not combat-tagged, they are unaffected by the pearl cooldown.
-        if (combatTagBridged && !combatTagBridge.isInCombat(player)) {
+        if (combatTagBridged && requireCombatTagForEffect && !combatTagBridge.isInCombat(player)) {
             return;
         }
 
@@ -123,7 +127,7 @@ public class PearlNerfListener implements Listener {
             return;
         }
 
-        if (combatTagBridged && combatTagBridge.isInCombat(event.getPlayer())) {
+        if (combatTagBridged && tagOnPearl && combatTagBridge.isInCombat(event.getPlayer())) {
             combatTagBridge.tagPlayer(event.getPlayer());
         }
 
