@@ -13,6 +13,7 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
     public final boolean tagOnPearl;
     public final boolean damageOnPearl;
     public final int pearlDamageAmount;
+    public final boolean useHumbugCorrection;
 
     public PearlNerfConfigurationContext(MbapiPlugin plugin) {
         super(plugin);
@@ -31,5 +32,6 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
         } else {
             pearlDamageAmount = tempPearlDamageAmount;
         }
+        useHumbugCorrection = plugin.getConfig().getBoolean("useHumbugCorrection", true);
     }
 }

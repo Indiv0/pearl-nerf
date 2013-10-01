@@ -40,6 +40,7 @@ public class PearlNerfListener implements Listener {
     private final boolean tagOnPearl;
     private final boolean damageOnPearl;
     private final int pearlDamageAmount;
+    private final boolean useHumbugCorrection;
 
     private PearlNerfCombatTagBridge combatTagBridge;
     private boolean combatTagBridged = false;
@@ -54,6 +55,7 @@ public class PearlNerfListener implements Listener {
         tagOnPearl = configurationContext.tagOnPearl;
         damageOnPearl = configurationContext.damageOnPearl;
         pearlDamageAmount = configurationContext.pearlDamageAmount;
+        useHumbugCorrection = configurationContext.useHumbugCorrection;
 
         if (!useCombatTag) {
             return;
@@ -138,6 +140,10 @@ public class PearlNerfListener implements Listener {
 
         if (combatTagBridged && tagOnPearl && combatTagBridge.isInCombat(event.getPlayer())) {
             combatTagBridge.tagPlayer(event.getPlayer());
+        }
+
+        if (!useHumbugCorrection) {
+            return;
         }
 
         Location destination = event.getTo();

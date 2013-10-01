@@ -18,6 +18,10 @@ damageOnPearl: true
 # Default: 1
 pearlDamageAmount: 1
 
+## Whether or not to use Humbug code to correct teleportation positioning.
+# Default: true
+useHumbugCorrection: true
+
 #======== CombatTag Settings ========#
 
 ## Whether or not the pearl nerf effect requires the player to be combat tagged.
