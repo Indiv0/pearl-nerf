@@ -52,6 +52,11 @@ public class PearlNerfListener implements Listener {
         }
 
         Player player = (Player) item.getShooter();
+
+        if (player.hasPermission("pearlnerf.exempt")) {
+            return;
+        }
+
         String playerName = player.getName();
 
         // Retrieves the time at which the pearl cooldown for the player will be complete, as well as the current time.
