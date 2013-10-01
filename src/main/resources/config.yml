@@ -6,7 +6,7 @@
 
 #======== Settings ==========#
 
-## Time (in seconds) between thrown pearls when in combat
+## Time (in seconds) between thrown pearls when in combat.
 # Default: 10
 pearlCooldownTime: 10
 <<<<<<< Updated upstream

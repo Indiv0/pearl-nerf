@@ -50,6 +50,7 @@ public class PearlNerfListener implements Listener {
         ctAPI = new CombatTagApi((CombatTag) Bukkit.getPluginManager().getPlugin("CombatTag"));
         cooldownTimes = new TypeSafeMapImpl<>(new HashMap<String, Long>(), CoreTypes.STRING, CoreTypes.LONG);
 
+        // Retrieve configuration options.
         cooldownMillis = configurationContext.pearlCooldownTime * 1000;
 <<<<<<< Updated upstream
 =======
@@ -72,7 +73,6 @@ public class PearlNerfListener implements Listener {
         }
 
         combatTagBridged = true;
->>>>>>> Stashed changes
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -119,13 +119,7 @@ public class PearlNerfListener implements Listener {
         event.setCancelled(true);
         ItemStack inHand = player.getItemInHand();
         inHand.setAmount(inHand.getAmount() + 1);
-
-        if (!damageOnPearl)
-        {
-            return;
-        }
-
-        player.damage(pearlDamageAmount);
+        player.setHealth(player.getHealth() - 1);
     }
 
     /*
