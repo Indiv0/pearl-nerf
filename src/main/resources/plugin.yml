@@ -5,3 +5,7 @@ version: ${project.version}
 author: Indiv0
 depend: [CombatTag]
 dev-url: http://github.com/Indiv0/PearlNerf/
+
+permissions:
+  pearlnerf.exempt:
+    description: Exempts the player from the effects of pearlnerf
