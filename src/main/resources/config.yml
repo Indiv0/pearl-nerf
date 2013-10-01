@@ -6,6 +6,11 @@
 
 #======== Settings ==========#
 
-## Time (in seconds) between thrown pearls when in combat
+## Time (in seconds) between thrown pearls when in combat.
 # Default: 10
 pearlCooldownTime: 10
+
+## Whether or not the pearl nerf effect requires the player to be combat tagged.
+# Note: This requires the CombatTag plugin. If it is not present, this feature will not be enabled.
+# Default: True
+useCombatTag: true

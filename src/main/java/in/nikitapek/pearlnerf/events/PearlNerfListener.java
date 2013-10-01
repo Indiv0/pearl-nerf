@@ -1,9 +1,11 @@
 package in.nikitapek.pearlnerf.events;
 
+import in.nikitapek.pearlnerf.util.PearlNerfCombatTagBridge;
 import in.nikitapek.pearlnerf.util.PearlNerfConfigurationContext;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,16 +32,34 @@ import com.trc202.CombatTagApi.CombatTagApi;
 public class PearlNerfListener implements Listener {
     private static final DecimalFormat formatter = new DecimalFormat("##0.0");
 
-    private final CombatTagApi ctAPI;
     private final TypeSafeMap<String, Long> cooldownTimes;
 
     private final int cooldownMillis;
+    private final boolean useCombatTag;
+
+    private PearlNerfCombatTagBridge combatTagBridge;
+    private boolean combatTagBridged = false;
 
     public PearlNerfListener(PearlNerfConfigurationContext configurationContext) {
-        ctAPI = new CombatTagApi((CombatTag) Bukkit.getPluginManager().getPlugin("CombatTag"));
         cooldownTimes = new TypeSafeMapImpl<>(new HashMap<String, Long>(), CoreTypes.STRING, CoreTypes.LONG);
 
+        // Retrieve configuration options.
         cooldownMillis = configurationContext.pearlCooldownTime * 1000;
+        useCombatTag = configurationContext.useCombatTag;
+
+        if (!useCombatTag) {
+            return;
+        }
+
+        try {
+            combatTagBridge = new PearlNerfCombatTagBridge(configurationContext.plugin);
+        }
+        catch (final NoClassDefFoundError ex) {
+            configurationContext.plugin.getLogger().log(Level.WARNING, "\"useCombatTag\" true but CombatTag not found. CombatTag related features will not be enabled.");
+            return;
+        }
+
+        combatTagBridged = true;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -70,7 +90,7 @@ public class PearlNerfListener implements Listener {
         }
 
         // If the player is not combat-tagged, they are unaffected by the pearl cooldown.
-        if (!ctAPI.isInCombat(player)) {
+        if (combatTagBridged && !combatTagBridge.isInCombat(player)) {
             return;
         }
 
@@ -103,8 +123,8 @@ public class PearlNerfListener implements Listener {
             return;
         }
 
-        if (ctAPI.isInCombat(event.getPlayer())) {
-            ctAPI.tagPlayer(event.getPlayer());
+        if (combatTagBridged && combatTagBridge.isInCombat(event.getPlayer())) {
+            combatTagBridge.tagPlayer(event.getPlayer());
         }
 
         Location destination = event.getTo();
