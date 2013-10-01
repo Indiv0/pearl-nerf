@@ -8,14 +8,11 @@ import java.util.logging.Level;
 
 public class PearlNerfConfigurationContext extends ConfigurationContext {
     public final int pearlCooldownTime;
-<<<<<<< Updated upstream
-=======
     public final boolean useCombatTag;
     public final boolean requireCombatTagForEffect;
     public final boolean tagOnPearl;
     public final boolean damageOnPearl;
     public final int pearlDamageAmount;
->>>>>>> Stashed changes
 
     public PearlNerfConfigurationContext(MbapiPlugin plugin) {
         super(plugin);
@@ -23,8 +20,6 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
         plugin.saveDefaultConfig();
 
         pearlCooldownTime = plugin.getConfig().getInt("pearlCooldownTime", 0);
-<<<<<<< Updated upstream
-=======
         useCombatTag = plugin.getConfig().getBoolean("useCombatTag", true);
         requireCombatTagForEffect = plugin.getConfig().getBoolean("requireCombatTagForEvent", true);
         tagOnPearl = plugin.getConfig().getBoolean("tagOnPearl", true);
@@ -36,6 +31,5 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
         } else {
             pearlDamageAmount = tempPearlDamageAmount;
         }
->>>>>>> Stashed changes
     }
 }

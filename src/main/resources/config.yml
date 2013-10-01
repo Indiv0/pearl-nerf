@@ -9,8 +9,6 @@
 ## Time (in seconds) between thrown pearls when in combat.
 # Default: 10
 pearlCooldownTime: 10
-<<<<<<< Updated upstream
-=======
 
 ## Whether or not a player's health is decreased if they attempt to pearl while under the effect of the nerf.
 # Default: true
@@ -34,4 +32,3 @@ requireCombatTagForEffect: true
 ## Whether or not a player is combat-tagged upon pearl teleport.
 # Default: true
 tagOnPearl: true
->>>>>>> Stashed changes
