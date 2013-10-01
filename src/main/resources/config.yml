@@ -10,7 +10,9 @@
 # Default: 10
 pearlCooldownTime: 10
 
+#======== CombatTag Settings ========#
+
 ## Whether or not the pearl nerf effect requires the player to be combat tagged.
 # Note: This requires the CombatTag plugin. If it is not present, this feature will not be enabled.
-# Default: True
+# Default: true
 useCombatTag: true
