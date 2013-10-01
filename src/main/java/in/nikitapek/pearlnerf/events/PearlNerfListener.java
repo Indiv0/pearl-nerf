@@ -34,12 +34,45 @@ public class PearlNerfListener implements Listener {
     private final TypeSafeMap<String, Long> cooldownTimes;
 
     private final int cooldownMillis;
+<<<<<<< Updated upstream
+=======
+    private final boolean useCombatTag;
+    private final boolean requireCombatTagForEffect;
+    private final boolean tagOnPearl;
+    private final boolean damageOnPearl;
+    private final int pearlDamageAmount;
+
+    private PearlNerfCombatTagBridge combatTagBridge;
+    private boolean combatTagBridged = false;
+>>>>>>> Stashed changes
 
     public PearlNerfListener(PearlNerfConfigurationContext configurationContext) {
         ctAPI = new CombatTagApi((CombatTag) Bukkit.getPluginManager().getPlugin("CombatTag"));
         cooldownTimes = new TypeSafeMapImpl<>(new HashMap<String, Long>(), CoreTypes.STRING, CoreTypes.LONG);
 
         cooldownMillis = configurationContext.pearlCooldownTime * 1000;
+<<<<<<< Updated upstream
+=======
+        useCombatTag = configurationContext.useCombatTag;
+        requireCombatTagForEffect = configurationContext.requireCombatTagForEffect;
+        tagOnPearl = configurationContext.tagOnPearl;
+        damageOnPearl = configurationContext.damageOnPearl;
+        pearlDamageAmount = configurationContext.pearlDamageAmount;
+
+        if (!useCombatTag) {
+            return;
+        }
+
+        try {
+            combatTagBridge = new PearlNerfCombatTagBridge(configurationContext.plugin);
+        }
+        catch (final NoClassDefFoundError ex) {
+            configurationContext.plugin.getLogger().log(Level.WARNING, "\"useCombatTag\" true but CombatTag not found. CombatTag related features will not be enabled.");
+            return;
+        }
+
+        combatTagBridged = true;
+>>>>>>> Stashed changes
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -86,7 +119,13 @@ public class PearlNerfListener implements Listener {
         event.setCancelled(true);
         ItemStack inHand = player.getItemInHand();
         inHand.setAmount(inHand.getAmount() + 1);
-        player.setHealth(player.getHealth() - 1);
+
+        if (!damageOnPearl)
+        {
+            return;
+        }
+
+        player.damage(pearlDamageAmount);
     }
 
     /*

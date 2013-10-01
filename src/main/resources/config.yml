@@ -9,3 +9,29 @@
 ## Time (in seconds) between thrown pearls when in combat
 # Default: 10
 pearlCooldownTime: 10
+<<<<<<< Updated upstream
+=======
+
+## Whether or not a player's health is decreased if they attempt to pearl while under the effect of the nerf.
+# Default: true
+damageOnPearl: true
+
+## Amount to damage the player's health by, if damageOnPearl is enabled.
+# Default: 1
+pearlDamageAmount: 1
+
+#======== CombatTag Settings ========#
+
+## Whether or not the pearl nerf effect requires the player to be combat tagged.
+# Note: This requires the CombatTag plugin. If it is not present, this feature will not be enabled.
+# Default: true
+useCombatTag: true
+
+## Whether or not a player needs to be combat-tagged for a pearl nerf effect to be applied.
+# Default: true
+requireCombatTagForEffect: true
+
+## Whether or not a player is combat-tagged upon pearl teleport.
+# Default: true
+tagOnPearl: true
+>>>>>>> Stashed changes
