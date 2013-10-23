@@ -1,12 +1,10 @@
 package in.nikitapek.pearlnerf.events;
 
+import com.amshulman.mbapi.util.CoreTypes;
+import com.amshulman.typesafety.TypeSafeMap;
+import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import in.nikitapek.pearlnerf.util.PearlNerfCombatTagBridge;
 import in.nikitapek.pearlnerf.util.PearlNerfConfigurationContext;
-
-import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.logging.Level;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -22,11 +20,9 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
-import com.amshulman.mbapi.util.CoreTypes;
-import com.amshulman.typesafety.TypeSafeMap;
-import com.amshulman.typesafety.impl.TypeSafeMapImpl;
-import com.trc202.CombatTag.CombatTag;
-import com.trc202.CombatTagApi.CombatTagApi;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class PearlNerfListener implements Listener {
     private static final DecimalFormat formatter = new DecimalFormat("##0.0");
@@ -62,8 +58,7 @@ public class PearlNerfListener implements Listener {
 
         try {
             combatTagBridge = new PearlNerfCombatTagBridge(configurationContext.plugin);
-        }
-        catch (final NoClassDefFoundError ex) {
+        } catch (final NoClassDefFoundError ex) {
             configurationContext.plugin.getLogger().log(Level.WARNING, "\"useCombatTag\" true but CombatTag not found. CombatTag related features will not be enabled.");
             return;
         }
