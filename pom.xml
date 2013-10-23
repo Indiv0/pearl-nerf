@@ -11,7 +11,7 @@
     <url>http://dev.bukkit.org/server-mods/pearlnerf/</url>
 
     <properties>
-        <combattag.version>5.9.2</combattag.version>
+        <combattag.version>5.9.5</combattag.version>
     </properties>
 
     <parent>
