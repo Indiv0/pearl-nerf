@@ -14,6 +14,10 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
     public final boolean damageOnPearl;
     public final int pearlDamageAmount;
     public final boolean useHumbugCorrection;
+    public final int fireDelay;
+    public final boolean onlyDamageAutoClickers;
+    public final int minimumAutoClickedPearlCount;
+    public final boolean printDebugInfo;
 
     public PearlNerfConfigurationContext(MbapiPlugin plugin) {
         super(plugin);
@@ -33,5 +37,9 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
             pearlDamageAmount = tempPearlDamageAmount;
         }
         useHumbugCorrection = plugin.getConfig().getBoolean("useHumbugCorrection", true);
+        fireDelay = plugin.getConfig().getInt("fireDelay", 20);
+        onlyDamageAutoClickers = plugin.getConfig().getBoolean("onlyDamageAutoClickers", true);
+        minimumAutoClickedPearlCount = plugin.getConfig().getInt("minimumAutoClickedPearlCount", 15);
+        printDebugInfo = plugin.getConfig().getBoolean("printDebugInfo", false);
     }
 }

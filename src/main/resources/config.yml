@@ -22,6 +22,18 @@ pearlDamageAmount: 1
 # Default: true
 useHumbugCorrection: true
 
+## Pearl fire delay threshold (in milliseconds).
+# Default: 10
+fireDelay: 10
+
+## If damageOnPearl is enabled, this controls whether or not it is only applied to assumed auto-clickers.
+# Default: true
+onlyDamageAutoClickers: true
+
+## Number of auto clicked pearl detections required for a player to be labelled for auto-clicking.
+# Default: 4
+minimumAutoClickedPearlCount: 4
+
 #======== CombatTag Settings ========#
 
 ## Whether or not the pearl nerf effect requires the player to be combat tagged.
@@ -36,3 +48,9 @@ requireCombatTagForEffect: true
 ## Whether or not a player is combat-tagged upon pearl teleport.
 # Default: true
 tagOnPearl: true
+
+#======== Advanced Settings ========#
+
+## Whether or not to output debug information.
+# Default: false
+printDebugInfo: false
