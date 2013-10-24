@@ -11,3 +11,5 @@ target/
 # Maven
 dependency-reduced-pom.xml
 bin/
+
+lib/
