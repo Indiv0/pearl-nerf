@@ -22,7 +22,7 @@ public class PearlNerfConfigurationContext extends ConfigurationContext {
 
         pearlCooldownTime = plugin.getConfig().getInt("pearlCooldownTime", 0);
         useCombatTag = plugin.getConfig().getBoolean("useCombatTag", true);
-        requireCombatTagForEffect = plugin.getConfig().getBoolean("requireCombatTagForEvent", true);
+        requireCombatTagForEffect = plugin.getConfig().getBoolean("requireCombatTagForEffect", true);
         tagOnPearl = plugin.getConfig().getBoolean("tagOnPearl", true);
         damageOnPearl = plugin.getConfig().getBoolean("damageOnPearl", true);
         int tempPearlDamageAmount = plugin.getConfig().getInt("pearlDamageAmount", 1);
