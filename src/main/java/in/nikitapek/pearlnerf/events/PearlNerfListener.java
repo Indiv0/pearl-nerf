@@ -5,6 +5,8 @@ import com.amshulman.typesafety.TypeSafeMap;
 import com.amshulman.typesafety.impl.TypeSafeMapImpl;
 import in.nikitapek.pearlnerf.util.PearlNerfCombatTagBridge;
 import in.nikitapek.pearlnerf.util.PearlNerfConfigurationContext;
+import in.nikitapek.pearlnerf.util.SupplementaryTypes;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -19,6 +21,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
+import org.javatuples.Pair;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -27,6 +30,7 @@ import java.util.logging.Level;
 public class PearlNerfListener implements Listener {
     private static final DecimalFormat formatter = new DecimalFormat("##0.0");
 
+    private final TypeSafeMap<String, Pair<Integer, Long>> playerAutoClickInfo = new TypeSafeMapImpl<>(new HashMap<String, Pair<Integer, Long>>(), CoreTypes.STRING, SupplementaryTypes.AUTO_CLICK_TRACKING_INFO);
     private final TypeSafeMap<String, Long> cooldownTimes;
 
     private final int cooldownMillis;
@@ -36,6 +40,10 @@ public class PearlNerfListener implements Listener {
     private final boolean damageOnPearl;
     private final int pearlDamageAmount;
     private final boolean useHumbugCorrection;
+    private final int fireDelay;
+    private final boolean onlyDamageAutoClickers;
+    private final int minimumAutoClickedPearlCount;
+    private final boolean printDebugInfo;
 
     private PearlNerfCombatTagBridge combatTagBridge;
     private boolean combatTagBridged = false;
@@ -51,6 +59,10 @@ public class PearlNerfListener implements Listener {
         damageOnPearl = configurationContext.damageOnPearl;
         pearlDamageAmount = configurationContext.pearlDamageAmount;
         useHumbugCorrection = configurationContext.useHumbugCorrection;
+        fireDelay = configurationContext.fireDelay;
+        onlyDamageAutoClickers = configurationContext.onlyDamageAutoClickers;
+        minimumAutoClickedPearlCount = configurationContext.minimumAutoClickedPearlCount;
+        printDebugInfo = configurationContext.printDebugInfo;
 
         if (!useCombatTag) {
             return;
@@ -82,6 +94,8 @@ public class PearlNerfListener implements Listener {
         }
 
         String playerName = player.getName();
+
+        boolean isPlayerAutoClicking = checkForAutoClicking(playerName);
 
         // Retrieves the time at which the pearl cooldown for the player will be complete, as well as the current time.
         long end = unpackLong(cooldownTimes.get(playerName));
@@ -115,7 +129,12 @@ public class PearlNerfListener implements Listener {
             return;
         }
 
-        player.damage(pearlDamageAmount);
+        if (onlyDamageAutoClickers && !isPlayerAutoClicking) {
+            return;
+        }
+
+        // Use the manual setHealth() method because damage() can't keep up with auto-click rates fast enough to kill the auto-clickers.
+        player.setHealth(player.getHealth() - pearlDamageAmount);
     }
 
     /*
@@ -215,5 +234,35 @@ public class PearlNerfListener implements Listener {
 
     private static long unpackLong(Long l) {
         return (l == null) ? 0 : l;
+    }
+
+    private boolean checkForAutoClicking(String playerName) {
+        if (playerName == null) {
+            return false;
+        }
+
+        Pair<Integer, Long> playerInfo = playerAutoClickInfo.get(playerName);
+
+        long currentTime = System.currentTimeMillis();
+        // Update the pearl fire time and get the time since the last pearl fire.
+        Long deltaT = currentTime - playerInfo.getValue1();
+        playerInfo.setAt1(currentTime);
+
+        if (deltaT > fireDelay) {
+            // Reset the number of detected auto-clicks for the player.
+            playerInfo.setAt0(0);
+            return false;
+        }
+
+        // Increment the number of detected auto-click pearl fires for the player.
+        playerInfo.setAt0(playerInfo.getValue0() + 1);
+
+        boolean isPlayerAutoClicking = playerInfo.getValue0() >= minimumAutoClickedPearlCount;
+
+        if (isPlayerAutoClicking && printDebugInfo) {
+            Bukkit.getLogger().log(Level.INFO, playerName + " suspected of auto-clicking.");
+        }
+
+        return isPlayerAutoClicking;
     }
 }
