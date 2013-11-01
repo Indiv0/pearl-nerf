@@ -24,7 +24,7 @@
         <repository>
             <id>minerap-repo</id>
             <name>MinerAp</name>
-            <url>https://www.minerap.com/repository/</url>
+            <url>http://repo.minerap.com/</url>
         </repository>
     </repositories>
 
@@ -45,8 +45,6 @@
             <groupId>com.github.trc202</groupId>
             <artifactId>combat-tag</artifactId>
             <version>${combattag.version}</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CombatTag.jar</systemPath>
         </dependency>
     </dependencies>
 
