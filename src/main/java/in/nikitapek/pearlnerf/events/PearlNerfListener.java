@@ -243,6 +243,10 @@ public class PearlNerfListener implements Listener {
 
         Pair<Integer, Long> playerInfo = playerAutoClickInfo.get(playerName);
 
+        if (playerInfo == null) {
+            playerInfo = new Pair<>(0, new Long(0));
+        }
+
         long currentTime = System.currentTimeMillis();
         // Update the pearl fire time and get the time since the last pearl fire.
         Long deltaT = currentTime - playerInfo.getValue1();
