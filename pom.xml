@@ -46,8 +46,6 @@
             <groupId>com.github.trc202</groupId>
             <artifactId>combat-tag</artifactId>
             <version>${combattag.version}</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/CombatTag.jar</systemPath>
         </dependency>
     </dependencies>
 
