@@ -21,7 +21,7 @@ public class PearlNerfCombatTagBridge {
     }
 
     public boolean isInCombat(Player player) {
-        return combatTagAPI.isInCombat(player.getName());
+        return combatTagAPI.isInCombat(player);
     }
 
     public void tagPlayer(Player player) {
