@@ -1,4 +1,4 @@
-# PearlNerf [![Travis CI](https://secure.travis-ci.org/Indiv0/pearl-nerf.png)](http://travis-ci.org/#!/Indiv0/pearl-nerf)
+# PearlNerf [![Travis CI](https://secure.travis-ci.org/MinerAp/pearl-nerf.png)](http://travis-ci.org/#!/MinerAp/pearl-nerf)
 
 PearlNerf is a plugin for Bukkit which is used to nerf the capabilities of ender pearls in order to allow for fairer combat on PVP servers.
 
