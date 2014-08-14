@@ -2,7 +2,7 @@ language: java
 
 install:
   - curl -O https://raw.githubusercontent.com/MinerAp/minerap-workspace/master/combat-tag/combat-tag-6.1.3.pom
-  - curl -o combat-tag-6.1.3.jar http://dev.bukkit.org/media/files/785/483/CombatTag.jar
+  - curl -o combat-tag-6.1.3.jar http://addons.cursecdn.com/files/785/483/CombatTag.jar
   - mvn install:install-file -DpomFile=combat-tag-6.1.3.pom -Dfile=combat-tag-6.1.3.jar
 
 jdk:
