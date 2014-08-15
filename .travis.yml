@@ -7,3 +7,7 @@ install:
 
 jdk:
   - openjdk7
+  - oraclejdk8
+
+after_success:
+  - mvn jacoco:report coveralls:jacoco
