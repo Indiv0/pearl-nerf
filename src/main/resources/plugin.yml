@@ -3,7 +3,7 @@ main: in.nikitapek.pearlnerf.PearlNerfPlugin
 load: POSTWORLD
 version: ${project.version}
 author: Indiv0
-softdepend: [CombatTag]
+softdepend: [CombatTagPlus]
 dev-url: http://github.com/Indiv0/PearlNerf/
 
 permissions:

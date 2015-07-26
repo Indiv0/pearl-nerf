@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.amshulman</groupId>
         <artifactId>bukkit-parent</artifactId>
-        <version>0.21</version>
+        <version>0.22</version>
     </parent>
 
     <groupId>in.nikitapek</groupId>
@@ -17,7 +17,7 @@
     <url>http://dev.bukkit.org/server-mods/pearlnerf/</url>
 
     <properties>
-        <combattag.version>6.4.0</combattag.version>
+        <combattag.version>1.2.1</combattag.version>
     </properties>
 
     <dependencies>
@@ -34,9 +34,10 @@
         </dependency>
         <!-- CombatTag -->
         <dependency>
-            <groupId>com.trc202</groupId>
-            <artifactId>combattag</artifactId>
+            <groupId>net.minelink</groupId>
+            <artifactId>CombatTagPlus</artifactId>
             <version>${combattag.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Tests -->
         <dependency>
@@ -51,6 +52,10 @@
             <id>minerap-repo</id>
             <name>MinerAp</name>
             <url>http://repo.minerap.com/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>combattag-repo</id>
+            <url>http://repo.minelink.net/content/repositories/releases/</url>
         </repository>
     </repositories>
 

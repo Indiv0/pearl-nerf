@@ -1,30 +1,31 @@
 package in.nikitapek.pearlnerf.util;
 
-import com.amshulman.mbapi.MbapiPlugin;
-import com.trc202.CombatTag.CombatTag;
-import com.trc202.CombatTagApi.CombatTagApi;
+import net.minelink.ctplus.CombatTagPlus;
+import net.minelink.ctplus.TagManager;
+
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
+
+import com.amshulman.mbapi.MbapiPlugin;
 
 public class PearlNerfCombatTagBridge {
-    private final CombatTagApi combatTagAPI;
+    private final TagManager tagManager;
 
     public PearlNerfCombatTagBridge(MbapiPlugin plugin) {
-        final Plugin tempCombatTag = plugin.getServer().getPluginManager().getPlugin("CombatTag");
+        final CombatTagPlus tempCombatTag = (CombatTagPlus) plugin.getServer().getPluginManager().getPlugin("CombatTagPlus");
 
         if (tempCombatTag == null) {
-            combatTagAPI = null;
+            tagManager = null;
             return;
         }
 
-        combatTagAPI = new CombatTagApi((CombatTag) tempCombatTag);
+        tagManager = tempCombatTag.getTagManager();
     }
 
     public boolean isInCombat(Player player) {
-        return combatTagAPI.isInCombat(player);
+        return tagManager.isTagged(player.getUniqueId());
     }
 
     public void tagPlayer(Player player) {
-        combatTagAPI.tagPlayer(player);
+        tagManager.tag(player, null);
     }
 }
