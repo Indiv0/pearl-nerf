@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.amshulman</groupId>
         <artifactId>bukkit-parent</artifactId>
-        <version>0.23</version>
+        <version>0.24</version>
     </parent>
 
     <groupId>in.nikitapek</groupId>
@@ -17,7 +17,7 @@
     <url>http://dev.bukkit.org/server-mods/pearlnerf/</url>
 
     <properties>
-        <combattag.version>1.2.3</combattag.version>
+        <combattag.version>1.3.0-SNAPSHOT</combattag.version>
     </properties>
 
     <dependencies>
